@@ -1,5 +1,8 @@
 package com.distributedplatform.user;
 
+import jakarta.validation.Valid;
+
+import com.distributedplatform.user.dto.CreateUserRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,11 +21,12 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public User createUser(
-            @RequestParam String name,
-            @RequestParam String email) {
+    public User createUser(@Valid @RequestBody CreateUserRequest request) {
 
-        return userService.createUser(name, email);
+        return userService.createUser(
+                request.getName(),
+                request.getEmail()
+        );
     }
 
     @GetMapping("/{id}")
