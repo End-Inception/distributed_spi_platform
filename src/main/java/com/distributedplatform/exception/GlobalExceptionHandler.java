@@ -53,6 +53,23 @@ public class GlobalExceptionHandler {
                 .body(response);
     }
 
+    @ExceptionHandler(ProductNotFoundException.class)
+        public ResponseEntity<ErrorResponse> handleProductNotFound(
+                ProductNotFoundException exception) {
+
+            ErrorResponse response = new ErrorResponse(
+                    HttpStatus.NOT_FOUND.value(),
+                    exception.getMessage(),
+                    null
+            );
+
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(response);
+    }
+
+
+
     // 404 - User not found
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleUserNotFound(
